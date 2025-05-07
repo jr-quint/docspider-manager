@@ -39,18 +39,27 @@
    ```
 
 2. Configure a connection string no arquivo `appsettings.json`:
+
+   Se não houver uma senha.
    ```json
    "ConnectionStrings": {
-     "DefaultConnection": "Server=SEU_SERVIDOR;Database=DocSpiderDB;Trusted_Connection=True;"
+     "DefaultConnection": "Server=SEU_SERVIDOR;Database=DOCSPIDERAPP;Trusted_Connection=True;"
    }
    ```
+   Caso haja um usuaro e senha
+   
+   ```json
+   "ConnectionStrings": {
+    "DefaultConnection": "Server=SEU_SERVIDOR;Database=DOCSPIDERAPP;User Id=SEU_ID;Password=SUA_SENHA;"
+   }
+    ```
 
-3. Restaure o banco de dados com o comando:
+4. Restaure o banco de dados com o comando:
    ```bash
    dotnet ef database update
    ```
 
-4. Execute o projeto via Visual Studio (`F5`) ou com o comando:
+5. Execute o projeto via Visual Studio (`F5`) ou com o comando:
    ```bash
    dotnet run
    ```
