@@ -1,0 +1,32 @@
+﻿@model DocSpider.Models.DocumentosModel
+
+@{
+    ViewData["Title"] = "Confirmar Exclusão";
+}
+
+<hr />
+
+<h5>Tem certeza que deseja excluir este documento?</h5>
+
+
+<div>
+    <dl class="d-flex flex-column">
+        <dt>Título</dt>
+        <dd>@Model.Titulo</dd>
+
+        <dt>Descrição</dt>
+        <dd>@Model.Descricao</dd>
+
+        <dt>Nome do Arquivo</dt>
+        <dd>@Model.NomeDoArquivo</dd>
+
+        <dt>Data de Criação</dt>
+        <dd>@Model.DataCriacao.ToString("dd/MM/yyyy HH:mm")</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+        <a asp-action="Index" class="btn btn-secondary ml-2">Cancelar</a>
+    </form>
+</div>

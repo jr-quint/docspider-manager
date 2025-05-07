@@ -1,0 +1,39 @@
+﻿@model DocSpider.Models.DocumentosModel
+
+@{
+    ViewData["Title"] = "Detalhes do Documento";
+}
+
+<hr />
+
+<div class="">
+    <dl class=" d-flex flex-column">
+        <dt class="">Título</dt>
+        <dd>@Model.Titulo</dd>
+
+        <dt class="">Descrição</dt>
+        <dd>@Model.Descricao</dd>
+
+        <dt class="">Nome do Arquivo</dt>
+        <dd>@Model.NomeDoArquivo</dd>
+
+        <dt class="">Data e Hora de Criação</dt>
+        <dd>@Model.DataCriacao.ToString("dd/MM/yyyy HH:mm")</dd>
+    </dl>
+
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Excluir</a>
+
+        @if (!string.IsNullOrEmpty(Model.Arquivo))
+        {
+            <a asp-action="Download" asp-route-id="@Model.Id" class="btn btn-outline-info ml-2">Baixar Arquivo</a>
+        }
+    </div>
+ </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

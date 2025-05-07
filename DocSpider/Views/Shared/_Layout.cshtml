@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DocSpider Manager</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+    <header class="fixed-top header-class">
+        <nav class="d-block navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button id="toggleSidebar" class="btn mr-3" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand mr-auto" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="logo-docspider" src="/img/logo_docspider.webp" alt="Logo">
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main class="d-flex container-geral col-12 p-0">
+        <div class="sidebar" id="sidebar">
+            <ul class="list-unstyled">
+                <li class="@Html.IsActive("Home", "Index")">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <span class="link-text">Início</span>
+                        <i class="bi bi-house ml-auto"></i>
+                    </a>
+                </li>
+                <li class="@Html.IsActive("MeusDocumentos", "Index", "Details", "Edit", "Delete")">
+                    <a class="border-bottom" asp-area="" asp-controller="MeusDocumentos" asp-action="Index">
+                        <span class="link-text">Meus Documentos</span>
+                        <i class="bi bi-folder2-open ml-auto"></i>
+                    </a>
+                </li>
+                <li class="@Html.IsActive("Sobre", "Index")">
+                    <a href="#" data-toggle="modal" data-target="#aboutModal">
+                        <span class="link-text">Sobre</span>
+                        <i class="bi bi-info-circle ml-auto"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content-container" id="mainContent">
+            <div class="container-fluid content">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item">
+                            <a asp-area="" asp-controller="Home" asp-action="Index">Início</a>
+                        </li>
+                        @{
+                            if (@ViewData["Title"] != "Home" && @ViewData["Title"] != "Início")
+                            {
+                                if (@ViewData["Title"] != "Meus Documentos")
+                                {
+                                    <li class="breadcrumb-item">
+                                        <a asp-area="" asp-controller="MeusDocumentos" asp-action="Index">Meus Documentos</a>
+                                    </li>
+                                }
+                                <li class="breadcrumb-item">@ViewData["Title"]</li>
+                            }
+                        }
+                    </ol>
+                </nav>
+                <h4>@ViewData["Title"]</h4>
+                <div class="main-content mt-3">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel">Sobre o Sistema</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <img src="~/img/logo_docspider.webp" alt="Logo da Empresa" class="mb-3" style="max-height: 100px;">
+                    <p class="font-weight-bold mb-1">DocSpider Manager v1.0</p>
+                    <p class="text-muted">© 2025 - Sistema de Gerenciamento de Documentos</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+     
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

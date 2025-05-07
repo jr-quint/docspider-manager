@@ -1,0 +1,17 @@
+﻿@model DocSpider.Models.DocumentosModel
+
+@{
+    ViewData["Title"] = "Arquivo não encontrado";
+}
+
+<div class="alert alert-danger mt-4">
+    <h4 class="alert-heading">Erro ao baixar arquivo</h4>
+    <p>O arquivo associado ao documento <strong>@Model.Titulo</strong> não foi encontrado no servidor.</p>
+    <hr>
+    <p class="mb-0">Ele pode ter sido removido ou estar corrompido.</p>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-primary">Voltar para a lista de documentos</a>
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Ver detalhes do documento</a>
+</div>

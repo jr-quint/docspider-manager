@@ -1,0 +1,90 @@
+﻿@model DocSpider.Models.DocumentosModel
+
+@{
+    ViewData["Title"] = "Novo Documento";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label class="control-label">Título</label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Descrição</label>
+                <textarea asp-for="Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Nome do Arquivo</label>
+                <input asp-for="NomeDoArquivo" class="form-control" id="NomeDoArquivo" />
+                <span asp-validation-for="NomeDoArquivo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="upload">Arquivo</label>
+                <input type="file" name="upload" class="form-control p-0 border-0" id="Upload" />
+                <span asp-validation-for="Upload" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+            document.getElementById('Upload').addEventListener('change', function (e) {
+                var nomeArquivo = e.target.files[0].name;
+                document.getElementById('NomeDoArquivo').value = nomeArquivo;
+            });
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const nomeInput = document.getElementById('NomeDoArquivo');
+                let uploadInput = document.getElementById('Upload');
+                const maxFileSize = 30 * 1024 * 1024; // 30 MB
+
+                function handleFileChange(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    if (file.size > maxFileSize) {
+                        alert("O arquivo selecionado é que o tamanho suportado. Por favor, selecione um arquivo menor.");
+
+                        // Substitui o input por um novo (necessário para resetar corretamente)
+                        const newInput = uploadInput.cloneNode(true);
+                        newInput.value = ""; // Garante que está limpo
+                        uploadInput.parentNode.replaceChild(newInput, uploadInput);
+                        uploadInput = newInput; // Atualiza a referência
+                        uploadInput.id = "Upload"; // Mantém o ID para outras funcionalidades
+
+                        newInput.addEventListener('change', handleFileChange);
+
+                        if (nomeInput) nomeInput.value = "";
+                    } else {
+                        if (nomeInput) nomeInput.value = file.name;
+                    }
+                }
+
+                if (uploadInput) {
+                    uploadInput.addEventListener('change', handleFileChange);
+                }
+            });
+
+
+        </script>
+
+    }
+}

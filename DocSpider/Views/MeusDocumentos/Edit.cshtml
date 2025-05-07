@@ -1,0 +1,116 @@
+﻿@model DocSpider.Models.DocumentosModel
+
+@{
+    ViewData["Title"] = "Editar Documento";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label class="control-label">Título</label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Descrição</label>
+                <textarea asp-for="Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Nome do Arquivo</label>
+                <input asp-for="NomeDoArquivo" class="form-control" id="NomeDoArquivo" />
+                <span asp-validation-for="NomeDoArquivo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Upload" class="control-label">Novo Arquivo (opcional)</label>
+                <input asp-for="Upload" class="form-control p-0 border-0" type="file" id="Upload" />
+                <span asp-validation-for="Upload" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Arquivo Atual:</label>
+                @if (!string.IsNullOrEmpty(Model.Arquivo))
+                {
+                    <p>
+                        <a asp-action="Download" asp-route-id="@Model.Id" class="btn btn-outline-info btn-sm">
+                            Baixar @Model.NomeDoArquivo
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="text-muted">Nenhum arquivo disponível para download.</p>
+                }
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Data de Criação</label>
+                <input class="form-control" value="@Model.DataCriacao.ToString("dd/MM/yyyy HH:mm")" readonly />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right">Excluir Documento</a>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+            document.getElementById('Upload').addEventListener('change', function (e) {
+                var nomeArquivo = e.target.files[0].name;
+                document.getElementById('NomeDoArquivo').value = nomeArquivo;
+            });
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const nomeInput = document.getElementById('NomeDoArquivo');
+                let uploadInput = document.getElementById('Upload');
+                const maxFileSize = 30 * 1024 * 1024; // 30 MB
+
+                function handleFileChange(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    if (file.size > maxFileSize) {
+                        alert("O arquivo selecionado é maior que o tamanho suportado. Por favor, selecione um arquivo menor.");
+
+                        // Substitui o input por um novo (necessário para resetar corretamente)
+                        const newInput = uploadInput.cloneNode(true);
+                        newInput.value = ""; // Garante que está limpo
+                        uploadInput.parentNode.replaceChild(newInput, uploadInput);
+                        uploadInput = newInput; // Atualiza a referência
+                        uploadInput.id = "Upload"; // Mantém o ID para outras funcionalidades
+
+                        newInput.addEventListener('change', handleFileChange);
+
+                        if (nomeInput) nomeInput.value = "";
+                    } else {
+                        if (nomeInput) nomeInput.value = file.name;
+                    }
+                }
+
+                if (uploadInput) {
+                    uploadInput.addEventListener('change', handleFileChange);
+                }
+            });
+
+
+        </script>
+
+    }
+
+}

@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Início";
+}
+
+
+<div class="container mb-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 font-weight-bold">Bem-vindo ao <span class="text-primary">DocSpider Manager</span></h1>
+        <p class="lead text-muted">Organize, gerencie e acesse seus documentos com facilidade e segurança.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="p-4 bg-light border rounded h-100">
+                <h3 class="mb-3 text-primary">
+                    <i class="bi bi-stars mr-2"></i>Funcionalidades
+                </h3>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-check-circle-fill text-success mr-2"></i>Upload de documentos com metadados</li>
+                    <li><i class="bi bi-check-circle-fill text-success mr-2"></i>Listagem com filtros e ordenação</li>
+                    <li><i class="bi bi-check-circle-fill text-success mr-2"></i>Visualização e download rápido</li>
+                    <li><i class="bi bi-check-circle-fill text-success mr-2"></i>Edição e exclusão com confirmação</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="p-4 bg-light border rounded h-100">
+                <h3 class="mb-3 text-primary">
+                    <i class="bi bi-tools mr-2"></i>Tecnologias Utilizadas
+                </h3>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-dot mr-2 text-secondary"></i>ASP.NET Core MVC 3.1</li>
+                    <li><i class="bi bi-dot mr-2 text-secondary"></i>Entity Framework Core</li>
+                    <li><i class="bi bi-dot mr-2 text-secondary"></i>Bootstrap 4.3</li>
+                    <li><i class="bi bi-dot mr-2 text-secondary"></i>SQL Server</li>
+                    <li><i class="bi bi-dot mr-2 text-secondary"></i>HTML, CSS, JavaScript</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a class="btn btn-primary btn-lg" asp-controller="MeusDocumentos" asp-action="Index">
+            Comece a Gerenciar seus Documentos <i class="bi bi-arrow-right ml-2"></i>
+        </a>
+    </div>
+</div>
