@@ -35,7 +35,7 @@
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/docspider.git
+   git clone https://github.com/jr-quint/docspider-manager
    ```
 
 2. Configure a connection string no arquivo `appsettings.json`:
@@ -43,7 +43,7 @@
    Se não houver uma senha.
    ```json
    "ConnectionStrings": {
-     "DefaultConnection": "Server=SEU_SERVIDOR;Database=DOCSPIDERAPP;Trusted_Connection=True;"
+     "DefaultConnection": "Server=SEU_SERVIDOR;Database=DOCSPIDERAPP;Trusted_Connection=True; trustservercertificate=true"
    }
    ```
    Caso haja um usuaro e senha
